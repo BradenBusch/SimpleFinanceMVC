@@ -1,0 +1,89 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.account-name {
+    font-size: 30px;
+    font-family: 'Franklin Gothic';
+}
+
+.account-name-lg {
+    font-size: 50px;
+    font-family: 'Franklin Gothic';
+
+}
+
+.account-value {
+    font-size: 40px;
+    font-family: 'Franklin Gothic';
+    color: limegreen;
+}
+
+.net-worth {
+    font-size: 45px;
+    font-family: Verdana;
+    font-style: italic;
+    font-weight: bold;
+    color: limegreen;
+}
+
+.account-value-lg {
+    font-size: 50px;
+    font-family: 'Franklin Gothic';
+    color: limegreen;
+}
+
+.account-type {
+    font-size: 20px;
+    font-family: 'Franklin Gothic';
+}
+
+.account-card {
+    min-width: 20%;
+}
+
+.account-detail-card {
+    font-size: 16px;
+    font-family: 'Franklin Gothic';
+}
+
+.button-container {
+    margin-left: auto;
+}
+
+i:hover {
+    cursor: pointer;
+}
+
+.trash-icon {
+    margin-left: auto;
+}
+
+.account-information > div {
+    font-size: 25px;
+    font-family: 'Yu Gothic';
+}
+
+.add-account-label {
+    font-size: 25px;
+    font-family: 'Yu Gothic';
+}
