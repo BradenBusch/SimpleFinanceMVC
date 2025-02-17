@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace SimpleFinance.Controllers
 {
-    public class AccountHeaderController(IAccountHeaderRepository accountHeaderRepository, DataContext context) : Controller
+    public class AccountHeaderController(IAccountHeaderRepository accountHeaderRepository, IAccountDetailRepository accountDetailRepository, DataContext context) : Controller
     {
         private readonly IAccountHeaderRepository _accountHeaderRepository = accountHeaderRepository;
+        private readonly IAccountDetailRepository _accountDetailRepository = accountDetailRepository;
         private readonly DataContext _context = context;
 
         // View for home page
@@ -38,14 +39,8 @@ namespace SimpleFinance.Controllers
             return Redirect("AddAccount");
         }
 
-        // View for Account Header Details
-        public async Task<IActionResult> AccountHeaderDetails(Guid accountHeaderId)
-        {
-            var account = await _accountHeaderRepository.GetAccountHeaderByAccountId(accountHeaderId);
-            var vm = new AccountHeaderDetailsViewModel(account);
-            return View(vm);
-        }
 
+        // Update Account Headers
         public async Task<IActionResult> UpdateAccountHeader(Guid accountHeaderId, string accountName, string accountType, string accountDescription)
         {
             var currentAccount = await _accountHeaderRepository.GetAccountHeaderByAccountId(accountHeaderId);
@@ -62,6 +57,23 @@ namespace SimpleFinance.Controllers
 
         }
 
-        
+        // Delete Account and all Details
+        public async Task<IActionResult> DeleteAccountHeaderAndDetails(Guid accountHeaderId)
+        {
+            await _accountHeaderRepository.DeleteAccountHeader(accountHeaderId);
+            await _accountDetailRepository.DeleteAccountDetailsByHeaderId(accountHeaderId);
+
+            return RedirectToAction("AccountHome");
+
+        }
+
+        // Completely Resets the Database 
+        public async Task<IActionResult> ResetUserData()
+        {
+            await _accountDetailRepository.DeleteAllAccountDetails();
+            await _accountHeaderRepository.DeleteAllAccountHeaders();
+
+            return RedirectToAction("AccountHome");
+        }
     }
 }

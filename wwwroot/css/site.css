@@ -21,6 +21,10 @@ body {
   margin-bottom: 60px;
 }
 
+.red-text {
+    color: darkred !important;
+}
+
 .account-name {
     font-size: 30px;
     font-family: 'Franklin Gothic';

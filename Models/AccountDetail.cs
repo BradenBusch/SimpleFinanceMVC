@@ -18,7 +18,7 @@ namespace SimpleFinance.Models
             AccountValue = ah.AccountValue;
             CreateDate = DateTime.Now;
         }
-        public AccountDetail(AddAccountDetailViewModel vm)
+        public AccountDetail(AccountDetailsViewModel vm)
         {
             AccountDetailId = Guid.NewGuid();
             AccountHeaderId = vm.AccountHeaderId;

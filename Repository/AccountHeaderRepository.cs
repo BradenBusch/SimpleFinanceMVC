@@ -72,5 +72,11 @@ namespace SimpleFinance.Repository
             await _context.SaveChangesAsync();
             return accountHeader;
         }
+
+        public async Task DeleteAllAccountHeaders()
+        {
+            await _context.AccountHeader.ExecuteDeleteAsync();
+            await _context.SaveChangesAsync();
+        }
     }
 }

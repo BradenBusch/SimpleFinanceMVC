@@ -1,0 +1,77 @@
+﻿@using SimpleFinance.ViewModels
+@{
+    ViewData["Title"] = "Account Details";
+}
+
+@model AccountDetailsViewModel
+
+<div class="align-content-center">
+    <div style="margin-left: 20%; margin-right: 20%;">
+        <h1 class="display-4 d-flex justify-content-center">
+            Account Details
+        </h1>
+        <div class="mt-4 w-100 d-inline-flex justify-content-lg-between">
+            <div>
+                <div class="account-name">
+                    @Model.AccountHeader.AccountName
+                </div>
+                <div class="account-name">
+                    @Model.AccountHeader.AccountType
+                </div>
+
+            </div>
+            <div class="number account-value-lg">
+                $@Model.AccountHeader.AccountValue
+            </div>
+            <div>
+                <form asp-action="SaveAccountDetail" asp-controller="AccountDetail">
+                    @Html.HiddenFor(m => m.AccountHeaderId)
+
+                    @Html.LabelFor(m => m.AccountValue, new { @class = "account-type" })
+                    <input class="form-control mb-3 w-auto" type="number" value=@Model.AccountHeader.AccountValue step=".01" placeholder="@Model.AccountHeader.AccountValue" asp-for="AccountValue" />
+
+                    <div class="d-inline justify-content-between">
+                        <button class="btn btn-primary w-100" type="submit">Update Account Balance</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div>
+            <div>
+                Account Change ($): @Model.AccountAmountChange
+            </div>
+            <div>
+                Account Change (%): @Model.AccountPercentageChange
+            </div>
+        </div>
+
+
+        <div class="account-type mt-4">
+            Balance History
+        </div>
+        <div>
+            @foreach (var accountDetail in Model.AccountDetails)
+            {
+                <div class="card mb-1">
+                    <div class="card-body d-inline-flex justify-content-start gap-3 w-100">
+                        <div class="account-detail-card number">
+                            $@accountDetail.AccountValue
+                        </div>
+                        <div class="account-detail-card">
+                            @accountDetail.CreateDate
+                        </div>
+                        <div class="trash-icon">
+                            <a href="@Url.Action("DeleteAccountDetail", "AccountDetail", new { accountDetailId = @accountDetail.AccountDetailId, accountHeaderId = @accountDetail.AccountHeaderId })">
+                                <i class="fa fa-trash-o" style="font-size:20px;color:red"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+

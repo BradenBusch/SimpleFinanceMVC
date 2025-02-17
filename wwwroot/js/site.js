@@ -7,3 +7,7 @@
 
 window.addEventListener('load', formatNumbers);
 
+$("#ResetDataBtn").click(function () {
+    $("#ResetUserDataModal").modal('show');
+});
+

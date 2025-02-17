@@ -9,5 +9,6 @@ namespace SimpleFinance.Interfaces
         Task<AccountHeader> CreateAccountHeader(AccountHeader accountHeader);
         Task<AccountHeader> UpdateAccountHeader(AccountHeader accountHeader);
         Task<AccountHeader> DeleteAccountHeader(Guid accountHeader);
+        Task DeleteAllAccountHeaders();
     }
 }

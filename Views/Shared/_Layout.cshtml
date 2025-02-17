@@ -10,9 +10,49 @@
     <link rel="stylesheet" href="~/SimpleFinance.styles.css" asp-append-version="true" />
 </head>
 <body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="AccountHeader" asp-action="AccountHome">Simple Finance</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="btn btn-outline-dark" asp-controller="AccountHeader" asp-action="AddAccount" asp-area="" >Add Account</a>
+                        </li>
+                    </ul>
+                    <span class="nav-item">
+                        <button id="ResetDataBtn" class="btn btn-outline-danger">Reset Data</button>
+                    </span>
+                </div>
+            </div>
+        </nav>
+    </header>
     <div>
         <main role="main" class="pb-3">
             @RenderBody()
+
+            <div class="modal fade" id="ResetUserDataModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Reset User Data</h3>
+                        </div>
+                        <div id="ResetUserDataModalBody" class="modal-body">
+                            <form asp-action="ResetUserData" asp-controller="AccountHeader">
+                                <div>Are you sure you'd like to delete all accounts and history? This will completely reset the application. This action cannot be un-done. </div>
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-danger" type="submit">Yes, Delete Everything</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

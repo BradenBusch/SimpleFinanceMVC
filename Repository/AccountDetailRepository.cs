@@ -43,21 +43,6 @@ namespace SimpleFinance.Repository
             return accountDetail;
         }
 
-        // Delete an Account Detail By Id
-        public async Task<AccountDetail> DeleteAccountDetail(Guid accountDetailId)
-        {
-            var accountDetail = await _context.AccountDetail.FirstOrDefaultAsync(x => x.AccountDetailId == accountDetailId);
-
-            if (accountDetail == null)
-            {
-                return null;
-            }
-
-            _context.AccountDetail.Remove(accountDetail);
-            await _context.SaveChangesAsync();
-            return accountDetail;
-        }
-
         // Update an Account Detail
         public async Task<AccountDetail> UpdateAccountDetail(AccountDetail accountDetail)
         {
@@ -73,5 +58,37 @@ namespace SimpleFinance.Repository
             await _context.SaveChangesAsync();
             return existingAccountDetail;
         }
+
+        // Delete an Account Detail By Id
+        public async Task<AccountDetail> DeleteAccountDetail(Guid accountDetailId)
+        {
+            var accountDetail = await _context.AccountDetail.FirstOrDefaultAsync(x => x.AccountDetailId == accountDetailId);
+
+            if (accountDetail == null)
+            {
+                return null;
+            }
+
+            _context.AccountDetail.Remove(accountDetail);
+            await _context.SaveChangesAsync();
+            return accountDetail;
+        }
+
+        // Delete all details for an account
+        public async Task DeleteAccountDetailsByHeaderId(Guid accountHeaderId)
+        {
+            var accountDetails = await _context.AccountDetail.Where(x => x.AccountHeaderId == accountHeaderId).ToListAsync();
+
+            _context.AccountDetail.RemoveRange(accountDetails);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAllAccountDetails()
+        {
+            //_context.Database.ExecuteSqlCommand("TRUNCATE TABLE "AccountDetail");
+            await _context.AccountDetail.ExecuteDeleteAsync();
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

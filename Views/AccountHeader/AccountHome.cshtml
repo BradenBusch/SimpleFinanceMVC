@@ -11,9 +11,8 @@
 @model AccountHomeViewModel
 
 <div class="container">
-    <div class="d-flex justify-content-between gap-3 mt-4"> 
-        <span>Welcome Back, Braden</span>
-        @Html.ActionLink("Add Account", "AddAccount", "AccountHeader", new {}, new { @class="btn btn-dark"})
+    <div class="mt-4"> 
+        Welcome Back, Braden
     </div>
     <div class="account-name text-center">
         Accounts
@@ -35,16 +34,13 @@
                         </div>
                         <div class="button-container">
                             <i id="@account.AccountHeaderId,@account.AccountName,@account.AccountType,@account.AccountDescription" class="editAccountHeader fa fa-pencil" style="font-size:16px;"></i>
-                            <i class="fa fa-trash-o" style="font-size:16px;color:black"></i>
+                            <i id="@account.AccountHeaderId" class="deleteAccount fa fa-trash-o" style="font-size:16px;color:black"></i>
                         </div>
                      </div>
                     <div class="account-type mt-2">@account.AccountType</div>
-                    <div class="account-value number">$@account.AccountValue</div>
+                    <div class="account-value number">@account.AccountValue</div>
                     <div class="mt-3">
-                        @Html.ActionLink("Update Balance", "AddAccountDetail", "AccountDetail", new { accountHeaderId = account.AccountHeaderId }, new { @class = "btn btn-primary w-100"})
-                    </div>
-                    <div class="mt-3">
-                        @Html.ActionLink("View Account", "AccountHeaderDetails", "AccountHeader", new { accountHeaderId = account.AccountHeaderId }, new { @class = "btn btn-success w-100" })
+                        @Html.ActionLink("Account Details", "AccountDetails", "AccountDetail", new { accountHeaderId = account.AccountHeaderId }, new { @class = "btn btn-primary w-100"})
                     </div>
                 </div>
             </div>
@@ -52,8 +48,9 @@
     </div>
 </div>
 
-<div class="modal" id="EditAccountHeaderModal">
-    <div class="modal-dialog">
+<!-- Edit Modal (Hidden until pen icon clicked) -->
+<div class="modal fade" id="EditAccountHeaderModal">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">Edit Account</h3>
@@ -71,10 +68,29 @@
                         <button class="btn btn-primary" type="submit">Save</button>
                         @Html.ActionLink("Cancel", "AccountHome", "AccountHeader", new { }, new { @class = "btn btn-danger" })
                     </div>
-
                 </form>
             </div>
+        </div>
+    </div>
+</div>
 
+<!-- Delete Modal (Hidden until trash icon clicked) -->
+<div class="modal fade" id="DeleteAccountModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Account</h3>
+            </div>
+            <div id="DeleteAccountModalBody" class="modal-body">
+                <div>This action cannot be un-done. Are you sure you'd like to delete this account and all history?</div>
+                <form asp-action="DeleteAccountHeaderAndDetails" asp-controller="AccountHeader">
+                    <input name="accountHeaderId" id="DeleteModalAccountHeaderId" type="hidden" />
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="submit">Yes, Delete This Account</button>
+                        @Html.ActionLink("Cancel", "AccountHome", "AccountHeader", new { }, new { @class = "btn btn-primary-outline" })
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

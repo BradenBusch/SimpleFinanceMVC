@@ -37,9 +37,8 @@
         <span asp-validation-for="AccountValue"></span>
 
         @Html.LabelFor(m => m.AccountDescription, new { @class = "add-account-label" })
-        <input class="form-control mb-3" type="text" placeholder="(optional)" asp-for="AccountDescription" />
+        <input class="form-control mb-3" type="text" placeholder="Extra info" asp-for="AccountDescription" />
 
-        @* @Html.ActionLink("Save", "SaveAccount", "AccountHeader", new { }, new { @class = "btn btn-primary" }) *@
         <div class="d-inline justify-content-between">
             <button id="SubmitBtn" class="btn btn-primary" type="submit">Save</button>
             @Html.ActionLink("Cancel", "AccountHome", "AccountHeader", new { }, new { @class = "btn btn-danger" })

@@ -9,6 +9,8 @@ namespace SimpleFinance.Interfaces
         Task<AccountDetail> GetAccountDetail(Guid accountDetailId);
         Task<AccountDetail> CreateAccountDetail(AccountDetail accountDetail);
         Task<AccountDetail> DeleteAccountDetail(Guid accountDetailId);
+        Task DeleteAccountDetailsByHeaderId(Guid accountHeaderId);
         Task<AccountDetail> UpdateAccountDetail(AccountDetail accountDetail);
+        Task DeleteAllAccountDetails();
     }
 }

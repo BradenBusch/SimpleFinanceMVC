@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using SimpleFinance.Data;
 using SimpleFinance.Interfaces;
 using SimpleFinance.Models;
@@ -12,16 +13,16 @@ namespace SimpleFinance.Controllers
         private readonly IAccountDetailRepository _accountDetailRepository = accountDetailRepository;
 
         // View for updating account balance
-        public async Task<IActionResult> AddAccountDetail(Guid accountHeaderId)
+        public async Task<IActionResult> AccountDetails(Guid accountHeaderId)
         {
             var accountHeader = await _accountHeaderRepository.GetAccountHeaderByAccountId(accountHeaderId);
             var accountDetails = await _accountDetailRepository.GetAccountDetailsByHeaderId(accountHeaderId);
-            AddAccountDetailViewModel vm = new AddAccountDetailViewModel(accountHeader, accountDetails);
+            AccountDetailsViewModel vm = new AccountDetailsViewModel(accountHeader, accountDetails);
             return View(vm);
         }
 
         // Save updated account balance. Update Account Header Value (this is what is 'top level' i.e. displayed as the most updated value. Could just get the most recent detail to do this, but it makes the value more accessible.)
-        public async Task<IActionResult> SaveAccountDetail(AddAccountDetailViewModel vm)
+        public async Task<IActionResult> SaveAccountDetail(AccountDetailsViewModel vm)
         {
             var accountDetail = new AccountDetail(vm);
 
@@ -30,8 +31,15 @@ namespace SimpleFinance.Controllers
 
             await _accountDetailRepository.CreateAccountDetail(accountDetail);
             await _accountHeaderRepository.UpdateAccountHeader(accountHeader);
+            
+            return RedirectToAction("AccountDetails", new { accountHeaderId = vm.AccountHeaderId });
+        }
 
-            return RedirectToAction("AccountHome", "AccountHeader");
+        // Delete one account detail
+        public async Task<IActionResult> DeleteAccountDetail(Guid accountDetailId, Guid accountHeaderId)
+        {
+            await _accountDetailRepository.DeleteAccountDetail(accountDetailId);
+            return RedirectToAction("AccountDetails", new { accountHeaderId });
         }
     }
 }
