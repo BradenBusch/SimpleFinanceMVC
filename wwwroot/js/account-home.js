@@ -47,6 +47,4 @@ function setNetWorthDisplay() {
 
         account.innerText = "$" + convertedAccountValue;
     });
-
 }
-

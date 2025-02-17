@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using SimpleFinance.Models;
 using System.Globalization;
+using SimpleFinance.Helper;
 
 namespace SimpleFinance.ViewModels
 {
@@ -18,7 +19,10 @@ namespace SimpleFinance.ViewModels
             AccountDetails = accountDetails;
             AccountAmountChange = CalculateAmountChange();
             AccountPercentageChange = CalculatePercentageChange();
+
+            ChartAccountDetails = Helper.Chart.GetDataSet(accountDetails);
         }
+
         // ====================================
         // For Submitting To Save in Controller
         // ====================================
@@ -36,6 +40,7 @@ namespace SimpleFinance.ViewModels
         public AccountHeader AccountHeader { get; set; }
         public List<AccountDetail> AccountDetails { get; set; }
 
+        public List<AccountDetail> ChartAccountDetails { get; set; }
         public string AccountPercentageChange { get; set; }
 
         public string AccountAmountChange { get; set; }

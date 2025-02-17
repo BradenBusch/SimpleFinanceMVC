@@ -2,14 +2,27 @@
 @{
     ViewData["Title"] = "Account Details";
 }
+ @model AccountDetailsViewModel
 
-@model AccountDetailsViewModel
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<script type="text/javascript" src="~/js/account-detail.js"></script>
+
+@*Embed Chart Data as hidden. This is so we can access it in JS *@
+@for (int i = 0; i < Model.ChartAccountDetails.Count; i++)
+{
+    @Html.HiddenFor(model => Model.ChartAccountDetails[i].AccountValue, new { @class = "hidden-chart-details-value"})
+    @Html.HiddenFor(model => Model.ChartAccountDetails[i].CreateDate, new { @class = "hidden-chart-details-date" })
+}
 
 <div class="align-content-center">
     <div style="margin-left: 20%; margin-right: 20%;">
-        <h1 class="display-4 d-flex justify-content-center">
+        <h3 class="d-flex justify-content-center">
             Account Details
-        </h1>
+        </h3>
         <div class="mt-4 w-100 d-inline-flex justify-content-lg-between">
             <div>
                 <div class="account-name">
@@ -36,8 +49,10 @@
                 </form>
             </div>
         </div>
-        
-        <div>
+        <div id="ChartContainer">
+            <canvas id="myChart" ref="canvasRef" style="max-height: 400px;max-width: 800px;"></canvas>
+        </div>
+        <div class="m-4">
             <div>
                 Account Change ($): @Model.AccountAmountChange
             </div>
@@ -45,7 +60,6 @@
                 Account Change (%): @Model.AccountPercentageChange
             </div>
         </div>
-
 
         <div class="account-type mt-4">
             Balance History
