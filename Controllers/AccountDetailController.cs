@@ -39,6 +39,17 @@ namespace SimpleFinance.Controllers
         public async Task<IActionResult> DeleteAccountDetail(Guid accountDetailId, Guid accountHeaderId)
         {
             await _accountDetailRepository.DeleteAccountDetail(accountDetailId);
+
+            // If deleted detail was the newest detail, re-save Account Header
+            var details = await _accountDetailRepository.GetAccountDetailsByHeaderId(accountHeaderId);
+            var newestDetail = details
+                .OrderByDescending(d => d.CreateDate)
+                .First();
+
+            var accountHeader = await _accountHeaderRepository.GetAccountHeaderByAccountId(accountHeaderId);
+            accountHeader.AccountValue = newestDetail.AccountValue;
+            await _accountHeaderRepository.UpdateAccountHeader(accountHeader);
+
             return RedirectToAction("AccountDetails", new { accountHeaderId });
         }
     }
