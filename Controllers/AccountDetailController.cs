@@ -40,7 +40,7 @@ namespace SimpleFinance.Controllers
         {
             await _accountDetailRepository.DeleteAccountDetail(accountDetailId);
 
-            // If deleted detail was the newest detail, re-save Account Header
+            // Re-save Account Header in case deleted detail was the newest detail
             var details = await _accountDetailRepository.GetAccountDetailsByHeaderId(accountHeaderId);
             var newestDetail = details
                 .OrderByDescending(d => d.CreateDate)
