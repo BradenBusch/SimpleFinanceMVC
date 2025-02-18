@@ -12,7 +12,7 @@ namespace SimpleFinance.Controllers
         private readonly IAccountHeaderRepository _accountHeaderRepository = accountHeaderRepository;
         private readonly IAccountDetailRepository _accountDetailRepository = accountDetailRepository;
 
-        // View for updating account balance
+        // View for Account Details
         public async Task<IActionResult> AccountDetails(Guid accountHeaderId)
         {
             var accountHeader = await _accountHeaderRepository.GetAccountHeaderByAccountId(accountHeaderId);
@@ -21,7 +21,7 @@ namespace SimpleFinance.Controllers
             return View(vm);
         }
 
-        // Save updated account balance. Update Account Header Value (this is what is 'top level' i.e. displayed as the most updated value. Could just get the most recent detail to do this, but it makes the value more accessible.)
+        // Create a new detail, and update Account Header Value to reflect new detail. 
         public async Task<IActionResult> SaveAccountDetail(AccountDetailsViewModel vm)
         {
             var accountDetail = new AccountDetail(vm);

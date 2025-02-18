@@ -4,13 +4,11 @@
     let dataSetSize = 0;
 
     document.querySelectorAll('.hidden-chart-details-value').forEach(a => {
-        console.log(a.value);
         chartYAxis.push(a.value);
         dataSetSize++;
     });
 
     document.querySelectorAll('.hidden-chart-details-date').forEach(a => {
-        console.log(a.value);
         chartXAxis.push(a.value);
     });
 

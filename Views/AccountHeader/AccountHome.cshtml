@@ -94,3 +94,23 @@
         </div>
     </div>
 </div>
+
+<!-- Delete Everything Modal (Hidden until Reset Data is clicked) -->
+<div class="modal fade" id="ResetUserDataModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Reset User Data</h3>
+            </div>
+            <div id="ResetUserDataModalBody" class="modal-body">
+                <form asp-action="ResetUserData" asp-controller="AccountHeader">
+                    <div>Are you sure you'd like to delete all accounts and history? This will completely reset the application. This action cannot be un-done. </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="submit">Yes, Delete Everything</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

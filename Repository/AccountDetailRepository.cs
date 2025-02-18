@@ -14,12 +14,6 @@ namespace SimpleFinance.Repository
             _context = context;
         }
 
-        // Get All Account Details
-        public async Task<List<AccountDetail>> GetAllAccountDetails()
-        {
-            return await _context.AccountDetail.ToListAsync();
-        }
-
         // Get Account Detail By Id (Singular -- use for displaying one detail entry)
         public async Task<AccountDetail> GetAccountDetail(Guid accountDetailId)
         {
@@ -43,7 +37,7 @@ namespace SimpleFinance.Repository
             return accountDetail;
         }
 
-        // Update an Account Detail
+        // Update an Account Detail - unused in the application at this time
         public async Task<AccountDetail> UpdateAccountDetail(AccountDetail accountDetail)
         {
             var existingAccountDetail = await _context.AccountDetail.FirstOrDefaultAsync(x => x.AccountDetailId == accountDetail.AccountDetailId);
@@ -59,7 +53,7 @@ namespace SimpleFinance.Repository
             return existingAccountDetail;
         }
 
-        // Delete an Account Detail By Id
+        // Delete an Account Detail By Id - used when deleting one detail
         public async Task<AccountDetail> DeleteAccountDetail(Guid accountDetailId)
         {
             var accountDetail = await _context.AccountDetail.FirstOrDefaultAsync(x => x.AccountDetailId == accountDetailId);
@@ -74,7 +68,7 @@ namespace SimpleFinance.Repository
             return accountDetail;
         }
 
-        // Delete all details for an account
+        // Delete all details for an account - used when deleting an account
         public async Task DeleteAccountDetailsByHeaderId(Guid accountHeaderId)
         {
             var accountDetails = await _context.AccountDetail.Where(x => x.AccountHeaderId == accountHeaderId).ToListAsync();
@@ -83,6 +77,7 @@ namespace SimpleFinance.Repository
             await _context.SaveChangesAsync();
         }
 
+        // Delete All Account details - used when resetting user data
         public async Task DeleteAllAccountDetails()
         {
             //_context.Database.ExecuteSqlCommand("TRUNCATE TABLE "AccountDetail");
@@ -90,5 +85,11 @@ namespace SimpleFinance.Repository
             await _context.SaveChangesAsync();
         }
 
+
+        // Get All Account Details - used for testing
+        public async Task<List<AccountDetail>> GetAllAccountDetails()
+        {
+            return await _context.AccountDetail.ToListAsync();
+        }
     }
 }

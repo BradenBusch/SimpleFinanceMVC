@@ -2,11 +2,8 @@
     setNetWorthDisplay();
 
     document.querySelectorAll('.editAccountHeader').forEach(account => {
-
-        // Note: This is hacky. You shouldn't do this. I had no problem keeping this modal as a separate page.
-        // As a dynamic onClick from an <i>, I had to get a bit creative.
-        // Obviously this will fail if there are any commas where there shouldn't be.
- 
+        // This will fail if there are any commas where there shouldn't be.
+        // Dynamic assinging / embedding. Can do for controller action, couldn't figure out in time for dynamic modal.
         account.addEventListener('click', () => {
             let modalParamters = account.id.split(',');
             $("#ModalAccountHeaderId").prop('value', modalParamters[0]);
@@ -22,6 +19,10 @@
             $("#DeleteModalAccountHeaderId").prop('value', account.id);
             $('#DeleteAccountModal').modal('show');
         });
+    });
+
+    $("#ResetDataBtn").on('click', function () {
+        $("#ResetUserDataModal").modal('show');
     });
 });
 
@@ -39,9 +40,7 @@ function setNetWorthDisplay() {
     document.querySelectorAll('.account-value').forEach(account => {
         let accountValue = account.innerText;
         let convertedAccountValue = Number(accountValue);
-        console.log(convertedAccountValue);
         if (convertedAccountValue < 0.00) {
-            console.log('adding red textg');
             account.classList.add('red-text');
         }
 

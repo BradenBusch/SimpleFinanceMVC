@@ -21,7 +21,7 @@ namespace SimpleFinance.Controllers
             return View(accountHomeViewModel);
         }
         
-        // View for adding an account
+        // View for adding an account. 
         public IActionResult AddAccount()
         {
             return View();
