@@ -10,8 +10,8 @@
 
 <script type="text/javascript">
     function validateForm(e) {
-        if ($("#AccountName").val().includes(',')) {
-            alert("No Commas are allowed in the Account Name field. Try again.");
+        if ($("#AccountName").val().includes(',') || $("#AccountType").val().includes(',') || $("#AccountDescription").val().includes(',')) {
+            alert("Commas are not allowed in any field.");
             return false;
         }
     }
@@ -22,11 +22,11 @@
         <h1 class="display-4">Add A New Account</h1>
     </div>
     <form asp-action="SaveAccount" asp-controller="AccountHeader" onsubmit="return validateForm(Event)">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="All" class="text-danger"></div>
 
         @Html.LabelFor(m => m.AccountName, new { @class = "add-account-label" })
         <input id="AccountName" required class="form-control mb-3" type="text" placeholder="ex: Wells Fargo" asp-for="AccountName" />
-        <span asp-validation-for="AccountName"></span>
+        <span asp-validation-for="AccountName" id="AccountNameValidation"></span>
 
         @Html.LabelFor(m => m.AccountType, new { @class = "add-account-label" })
         <input required class="form-control mb-3" type="text" placeholder="ex: Savings" asp-for="AccountType" />

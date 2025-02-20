@@ -7,9 +7,13 @@
         chartYAxis.push(a.value);
         dataSetSize++;
     });
-
-    document.querySelectorAll('.hidden-chart-details-date').forEach(a => {
-        chartXAxis.push(a.value);
+    document.querySelectorAll('.hidden-chart-details-date').forEach((a, i) => {
+        if (i == 0 || i == (dataSetSize - 1)) {
+            chartXAxis.push(a.value);
+        }
+        else {
+            chartXAxis.push(" ");
+        }
     });
 
     const ctx = document.getElementById('myChart');
@@ -28,6 +32,11 @@
         },
         options: {
             scales: {
+                x: {
+                    ticks: {
+                        autoSkip: true
+                    }
+                },
                 y: {
                     beginAtZero: true
                 }

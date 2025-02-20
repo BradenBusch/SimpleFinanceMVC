@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleFinance.Data;
 
@@ -11,9 +12,11 @@ using SimpleFinance.Data;
 namespace SimpleFinance.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250220181151_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,44 +68,6 @@ namespace SimpleFinance.Migrations
                     b.HasKey("AccountHeaderId");
 
                     b.ToTable("AccountHeader");
-                });
-
-            modelBuilder.Entity("SimpleFinance.Models.ExpenseDetail", b =>
-                {
-                    b.Property<Guid>("ExpenseDetailId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("ExpenseHeaderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("ExpenseValue")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("ExpenseDetailId");
-
-                    b.ToTable("ExpenseDetail");
-                });
-
-            modelBuilder.Entity("SimpleFinance.Models.ExpenseHeader", b =>
-                {
-                    b.Property<Guid>("ExpenseHeaderId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ExpenseType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("ExpenseValue")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("ExpenseHeaderId");
-
-                    b.ToTable("ExpenseHeader");
                 });
 #pragma warning restore 612, 618
         }

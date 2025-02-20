@@ -10,6 +10,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IAccountDetailRepository, AccountDetailRepository>();
 builder.Services.AddScoped<IAccountHeaderRepository, AccountHeaderRepository>();
+builder.Services.AddScoped<IExpenseDetailRepository, ExpenseDetailRepository>();
+builder.Services.AddScoped<IExpenseHeaderRepository, ExpenseHeaderRepository>();
+
 
 builder.Services.AddDbContext<DataContext>(options =>
 {

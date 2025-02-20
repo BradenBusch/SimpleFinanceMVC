@@ -23,10 +23,17 @@ namespace SimpleFinance.Repository
         // Get Account Details By Header Id (Plural -- use for getting all details associated with one account)
         public async Task<List<AccountDetail>> GetAccountDetailsByHeaderId(Guid accountHeaderId)
         {
-            return await _context.AccountDetail
-                .Where(ad => ad.AccountHeaderId == accountHeaderId)
-                .OrderByDescending(ad => ad.CreateDate)
-                .ToListAsync();
+            try
+            {
+                return await _context.AccountDetail
+                    .Where(ad => ad.AccountHeaderId == accountHeaderId)
+                    .OrderByDescending(ad => ad.CreateDate)
+                    .ToListAsync();
+            }
+            catch (Exception e)
+            {
+                return new List<AccountDetail>();
+            }
         }
 
         // Create an Account Detail

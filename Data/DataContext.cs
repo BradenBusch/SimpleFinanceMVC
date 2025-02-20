@@ -20,5 +20,7 @@ namespace SimpleFinance.Data
 
         public DbSet<AccountHeader> AccountHeader { get; set; }
         public DbSet<AccountDetail> AccountDetail { get; set; }
+        public DbSet<ExpenseHeader> ExpenseHeader { get; set; }
+        public DbSet<ExpenseDetail> ExpenseDetail { get; set; }
     }
 }

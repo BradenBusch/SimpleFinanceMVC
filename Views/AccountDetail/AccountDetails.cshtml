@@ -15,7 +15,7 @@
 @for (int i = 0; i < Model.ChartAccountDetails.Count; i++)
 {
     @Html.HiddenFor(model => Model.ChartAccountDetails[i].AccountValue, new { @class = "hidden-chart-details-value"})
-    @Html.HiddenFor(model => Model.ChartAccountDetails[i].CreateDate, new { @class = "hidden-chart-details-date" })
+    @Html.HiddenFor(model => Model.ChartAccountDetails[i].CreateDate, new { @class = "hidden-chart-details-date" })   
 }
 
 <div class="align-content-center">
@@ -39,7 +39,7 @@
             <div>
                 <form asp-action="SaveAccountDetail" asp-controller="AccountDetail">
                     @Html.HiddenFor(m => m.AccountHeaderId)
-
+                    
                     @Html.LabelFor(m => m.AccountValue, new { @class = "account-type" })
                     <input class="form-control mb-3 w-auto" type="number" value=@Model.AccountHeader.AccountValue step=".01" placeholder="@Model.AccountHeader.AccountValue" asp-for="AccountValue" />
 
