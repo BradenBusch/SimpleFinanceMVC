@@ -21,6 +21,15 @@ body {
   margin-bottom: 60px;
 }
 
+.active-item {
+    color: black !important;
+    text-decoration: underline;
+}
+
+.normal-item {
+    color: black !important;
+}
+
 .red-text {
     color: darkred !important;
 }

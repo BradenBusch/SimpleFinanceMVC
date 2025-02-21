@@ -5,4 +5,6 @@
     });
 }
 
+
+
 window.addEventListener('load', formatNumbers);
