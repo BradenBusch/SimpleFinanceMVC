@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Create Expense";
+}
+
+@model AddExpenseViewModel
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<script type="text/javascript">
+    /*function validateForm(e) {
+        if ($("#AccountName").val().includes(',') || $("#AccountType").val().includes(',') || $("#AccountDescription").val().includes(',')) {
+            alert("Commas are not allowed in any field.");
+            return false;
+        }
+    }*/
+</script>
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">Add A New Expense</h1>
+    </div>
+    <form asp-action="CreateExpense" asp-controller="ExpenseHeader" onsubmit="return validateForm(Event)">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        @Html.LabelFor(m => m.ExpenseName, new { @class = "add-account-label" })
+        <input id="AccountName" required class="form-control mb-3" type="text" placeholder="ex: Mortage, Electricity, etc." asp-for="ExpenseName" />
+        <span asp-validation-for="ExpenseName"></span>
+
+        @Html.LabelFor(m => m.ExpenseType, new { @class = "add-account-label" })
+        <input required class="form-control mb-3" type="text" placeholder="ex: Bill, Groceries, Entertainment, etc." asp-for="ExpenseType" />
+        <span asp-validation-for="ExpenseType"></span>
+
+         @Html.LabelFor(m => m.ExpenseValue, new { @class = "add-account-label" })
+        <input required class="form-control mb-3" type="number" step=".01" placeholder="ex: 100.00" asp-for="ExpenseValue" />
+        <span asp-validation-for="ExpenseValue"></span>
+
+        <div class="d-inline justify-content-between">
+            <button id="SubmitBtn" class="btn btn-primary" type="submit">Save</button>
+            @Html.ActionLink("Cancel", "AccountHome", "AccountHeader", new { }, new { @class = "btn btn-danger" })
+        </div>
+    </form>
+</div>
+

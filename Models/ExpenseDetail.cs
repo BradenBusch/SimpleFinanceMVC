@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Identity.Client;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimpleFinance.Models
@@ -7,7 +8,15 @@ namespace SimpleFinance.Models
     {
         public ExpenseDetail()
         {
+            
+        }
 
+        public ExpenseDetail(ExpenseHeader expenseHeader)
+        {
+            ExpenseDetailId = Guid.NewGuid();
+            ExpenseHeaderId = expenseHeader.ExpenseHeaderId;
+            ExpenseValue = expenseHeader.ExpenseValue;
+            CreateDate = DateTime.Now;
         }
 
         [Key]

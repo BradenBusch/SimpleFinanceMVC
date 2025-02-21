@@ -13,5 +13,15 @@ namespace SimpleFinance.Repository
         {
             _context = context;
         }
+
+        public async Task<ExpenseHeader> CreateExpenseHeader(ExpenseHeader expenseHeader)
+        {
+            await _context.ExpenseHeader.AddAsync(expenseHeader);
+            var expenseDetail = new ExpenseDetail(expenseHeader);
+            await _context.ExpenseDetail.AddAsync(expenseDetail);
+
+            await _context.SaveChangesAsync();
+            return expenseHeader;
+        }
     }
 }

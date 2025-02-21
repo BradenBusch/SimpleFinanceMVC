@@ -10,6 +10,14 @@ namespace SimpleFinance.Models
 
         }
 
+        public ExpenseHeader(AddExpenseViewModel vm)
+        {
+            ExpenseHeaderId = Guid.NewGuid();
+            ExpenseValue = vm.ExpenseValue;
+            ExpenseType = vm.ExpenseType;
+            ExpenseName = vm.ExpenseName;
+        }
+
         [Key]
         public Guid ExpenseHeaderId { get; set; }
 
@@ -19,5 +27,8 @@ namespace SimpleFinance.Models
 
         [Display(Name = "Expense Type: ")]
         public string ExpenseType { get; set; }
+
+        [Display(Name = "Expense Name")]
+        public string ExpenseName { get; set; }
     }
 }

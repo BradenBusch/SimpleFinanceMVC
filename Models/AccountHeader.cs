@@ -12,7 +12,7 @@ namespace SimpleFinance.Models
 
         public AccountHeader(AddAccountViewModel vm)
         {
-            AccountHeaderId = new Guid();
+            AccountHeaderId = Guid.NewGuid();
             AccountValue = vm.AccountValue;
             AccountType = vm.AccountType;
             AccountName = vm.AccountName;

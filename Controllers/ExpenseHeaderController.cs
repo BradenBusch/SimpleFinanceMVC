@@ -12,9 +12,21 @@ namespace SimpleFinance.Controllers
     {
         private readonly IExpenseHeaderRepository _expenseHeaderRepository = expenseHeaderRepository;
 
-        public IActionResult Index()
+        public IActionResult ExpenseHome()
         {
             return View();
+        }
+
+        public IActionResult AddExpense()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> CreateExpense(AddExpenseViewModel vm)
+        {
+            var expenseHeader = new ExpenseHeader(vm);
+            await _expenseHeaderRepository.CreateExpenseHeader(expenseHeader);
+            return RedirectToAction("ExpenseHome");
         }
     }
 }
