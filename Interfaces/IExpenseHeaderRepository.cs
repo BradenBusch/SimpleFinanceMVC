@@ -5,5 +5,6 @@ namespace SimpleFinance.Interfaces
     public interface IExpenseHeaderRepository
     {
         Task<ExpenseHeader> CreateExpenseHeader(ExpenseHeader expenseHeader);
+        Task<List<ExpenseHeader>> GetExpenseHeaders();
     }
 }

@@ -5,16 +5,26 @@ using SimpleFinance.Interfaces;
 using SimpleFinance.Models;
 using SimpleFinance.Repository;
 using SimpleFinance.ViewModels;
+using System.Threading.Tasks;
 
 namespace SimpleFinance.Controllers
 {
-    public class ExpenseHeaderController(IExpenseHeaderRepository expenseHeaderRepository) : Controller
+    public class ExpenseHeaderController(IExpenseHeaderRepository expenseHeaderRepository, IExpenseDetailRepository expenseDetailRepository) : Controller
     {
         private readonly IExpenseHeaderRepository _expenseHeaderRepository = expenseHeaderRepository;
-
-        public IActionResult ExpenseHome()
+        private readonly IExpenseDetailRepository _expenseDetailRepository = expenseDetailRepository;
+        public async Task<IActionResult> ExpenseHome()
         {
-            return View();
+            Dictionary<ExpenseHeader, List<ExpenseDetail>> mapping = new Dictionary<ExpenseHeader, List<ExpenseDetail>>();
+            var expenseHeaders = await _expenseHeaderRepository.GetExpenseHeaders();
+            foreach (var expenseHeader in expenseHeaders)
+            {
+                var expenseDetails = await _expenseDetailRepository.GetExpenseDetailsByHeaderId(expenseHeader.ExpenseHeaderId);
+                mapping.Add(expenseHeader, new List<ExpenseDetail>());
+                mapping[expenseHeader] = expenseDetails;
+            }
+            var vm = new ExpenseHomeViewModel(mapping);
+            return View(vm);
         }
 
         public IActionResult AddExpense()

@@ -39,6 +39,11 @@ body {
     font-family: 'Franklin Gothic';
 }
 
+.expense-date {
+    font-size: 20px;
+    font-family: 'Franklin Gothic';
+}
+
 .account-name-lg {
     font-size: 50px;
     font-family: 'Franklin Gothic';

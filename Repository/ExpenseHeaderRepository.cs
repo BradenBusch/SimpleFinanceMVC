@@ -23,5 +23,10 @@ namespace SimpleFinance.Repository
             await _context.SaveChangesAsync();
             return expenseHeader;
         }
+
+        public async Task<List<ExpenseHeader>> GetExpenseHeaders()
+        {
+            return await _context.ExpenseHeader.ToListAsync();
+        }
     }
 }

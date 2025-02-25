@@ -1,6 +1,72 @@
-﻿@*
+﻿@using SimpleFinance.ViewModels
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "Expense Home";
 }
-<h1>Im home baby</h1>
+
+@model ExpenseHomeViewModel
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<script>
+    function showDetails(id) {
+        var detailContainer = document.getElementById(id);
+        detailContainer.classList.add('d-block');
+        detailContainer.classList.remove('d-none');
+    }
+</script>
+<div class="container">
+    <div class="w-100">
+        @foreach (var expense in Model.Expenses)
+        {
+            <div class="card m-2 account-card">
+                <div class="card-body account-card">
+                    <div class="d-inline-flex w-100 justify-content-between account-name">
+                        <div>
+                            @expense.Key.ExpenseName
+                        </div>
+                        <div class="account-type">
+                            @expense.Key.ExpenseType
+                        </div>
+                        <div>
+                            <button class="btn btn-primary">Add Entry</button>
+                        </div>
+                    </div>
+                    <div class="w-100 d-inline-flex account-type border-bottom">
+                        <div class="account-value m-2">
+                            $@expense.Key.ExpenseValue
+                        </div>
+                        <div class="expense-date m-2 align-content-center align-items-center">
+                            @Model.DateDisplay[expense.Key.ExpenseHeaderId]
+                        </div>
+                    </div>
+                    <div class="w-100 d-inline-flex justify-content-center mt-2 mb-0" onclick="showDetails('@expense.Key.ExpenseHeaderId')">
+                        <button class="btn btn-outline-dark">
+                            Show Details <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div id="@expense.Key.ExpenseHeaderId" class="d-none">
+                        @foreach (var expenseDetail in expense.Value)
+                        {
+                            <div class="card mt-1">
+                                <div class="card-body d-inline-flex justify-content-start gap-3 w-100">
+                                    <div class="account-detail-card number">
+                                        $@expenseDetail.ExpenseValue
+                                    </div>
+                                    <div class="account-detail-card">
+                                        @expenseDetail.CreateDate
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
