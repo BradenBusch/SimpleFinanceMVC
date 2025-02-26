@@ -12,10 +12,22 @@
 </head>
 
 <script>
-    function showDetails(id) {
+    function toggleDetails(id) {
         var detailContainer = document.getElementById(id);
-        detailContainer.classList.add('d-block');
-        detailContainer.classList.remove('d-none');
+        var isVisible = detailContainer.classList.contains('d-block');
+
+        if  (isVisible) {
+            detailContainer.classList.remove('d-block');
+            detailContainer.classList.add('d-none');
+            var btn = document.getElementById(id + "-Btn");
+            btn.innerHTML = "Show Details <i class='fa fa-arrow-down' aria-hidden='true'></i>";
+        }
+        else {
+            detailContainer.classList.add('d-block');
+            detailContainer.classList.remove('d-none');
+            var btn = document.getElementById(id + "-Btn");
+            btn.innerHTML = "Hide Details <i class='fa fa-arrow-up' aria-hidden='true'></i>";
+        }
     }
 </script>
 <div class="container">
@@ -24,11 +36,11 @@
         {
             <div class="card m-2 account-card">
                 <div class="card-body account-card">
-                    <div class="d-inline-flex w-100 justify-content-between account-name">
+                    <div class="d-inline-flex w-100 justify-content-between expense-date">
                         <div>
                             @expense.Key.ExpenseName
                         </div>
-                        <div class="account-type">
+                        <div class="expense-date">
                             @expense.Key.ExpenseType
                         </div>
                         <div>
@@ -36,15 +48,15 @@
                         </div>
                     </div>
                     <div class="w-100 d-inline-flex account-type border-bottom">
-                        <div class="account-value m-2">
+                        <div class="expense-date m-2">
                             $@expense.Key.ExpenseValue
                         </div>
                         <div class="expense-date m-2 align-content-center align-items-center">
                             @Model.DateDisplay[expense.Key.ExpenseHeaderId]
                         </div>
                     </div>
-                    <div class="w-100 d-inline-flex justify-content-center mt-2 mb-0" onclick="showDetails('@expense.Key.ExpenseHeaderId')">
-                        <button class="btn btn-outline-dark">
+                    <div class="w-100 d-inline-flex justify-content-center mt-2 mb-0" onclick="toggleDetails('@expense.Key.ExpenseHeaderId')">
+                        <button id="@expense.Key.ExpenseHeaderId-Btn" class="btn btn-outline-dark">
                             Show Details <i class="fa fa-arrow-down" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -63,7 +75,6 @@
                             </div>
                         }
                     </div>
-
                 </div>
             </div>
         }

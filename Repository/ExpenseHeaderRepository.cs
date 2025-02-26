@@ -28,5 +28,10 @@ namespace SimpleFinance.Repository
         {
             return await _context.ExpenseHeader.ToListAsync();
         }
+
+        public async Task<ExpenseHeader> GetExpenseHeaderByExpenseHeaderId(Guid expenseHeaderId)
+        {
+            return await _context.ExpenseHeader.Where(eh => eh.ExpenseHeaderId == expenseHeaderId).FirstAsync();
+        }
     }
 }
