@@ -10,26 +10,9 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+<script type="text/javascript" src="~/js/expense-header.js"></script>
 
-<script>
-    function toggleDetails(id) {
-        var detailContainer = document.getElementById(id);
-        var isVisible = detailContainer.classList.contains('d-block');
 
-        if  (isVisible) {
-            detailContainer.classList.remove('d-block');
-            detailContainer.classList.add('d-none');
-            var btn = document.getElementById(id + "-Btn");
-            btn.innerHTML = "Show Details <i class='fa fa-arrow-down' aria-hidden='true'></i>";
-        }
-        else {
-            detailContainer.classList.add('d-block');
-            detailContainer.classList.remove('d-none');
-            var btn = document.getElementById(id + "-Btn");
-            btn.innerHTML = "Hide Details <i class='fa fa-arrow-up' aria-hidden='true'></i>";
-        }
-    }
-</script>
 <div class="container">
     <div class="w-100">
         @foreach (var expense in Model.Expenses)
@@ -44,7 +27,7 @@
                             @expense.Key.ExpenseType
                         </div>
                         <div>
-                            <button class="btn btn-primary">Add Entry</button>
+                            <button class="btn btn-primary" onclick="addEntry('@expense.Key.ExpenseHeaderId')">Add Entry</button>
                         </div>
                     </div>
                     <div class="w-100 d-inline-flex account-type border-bottom">
@@ -81,3 +64,45 @@
     </div>
 </div>
 
+<div id="AddExpenseDetailModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="CreateExpenseDetail" asp-controller="ExpenseDetail">
+                    <input name="expenseHeaderId" id="ModalExpenseId" type="hidden" />
+                    <label for="ModalExpenseValue">Expense Cost</label>
+                    <input name="expenseValue" id="ModalExpenseValue" class="form-control mb-3" type="number" placeholder="135.32" step=".01" />
+
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                        @Html.ActionLink("Cancel", "ExpenseHome", "ExpenseHeader", new { }, new { @class = "btn btn-danger" })
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Delete Everything Modal (Hidden until Reset Data is clicked) -->
+<div class="modal fade" id="ResetUserDataModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Reset User Data</h3>
+            </div>
+            <div id="ResetUserDataModalBody" class="modal-body">
+                <form asp-action="ResetUserData" asp-controller="AccountHeader">
+                    <div>Are you sure you'd like to delete all accounts and history? This will completely reset the application. This action cannot be un-done. </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="submit">Yes, Delete Everything</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

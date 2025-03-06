@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleFinance.Data;
 using SimpleFinance.Interfaces;
+using SimpleFinance.Migrations;
 using SimpleFinance.Models;
 using SimpleFinance.Repository;
 using SimpleFinance.ViewModels;
@@ -37,6 +38,19 @@ namespace SimpleFinance.Controllers
             var expenseHeader = new ExpenseHeader(vm);
             await _expenseHeaderRepository.CreateExpenseHeader(expenseHeader);
             return RedirectToAction("ExpenseHome");
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetExpenseHeaderData(Guid expenseHeaderId)
+        {
+            var expenseHeader = await _expenseHeaderRepository.GetExpenseHeaderByExpenseHeaderId(expenseHeaderId);
+
+            return Json(new
+            {
+                ExpenseHeaderId = expenseHeaderId,
+                ExpenseType = expenseHeader.ExpenseType,
+                ExpenseName = expenseHeader.ExpenseName
+            });
         }
     }
 }

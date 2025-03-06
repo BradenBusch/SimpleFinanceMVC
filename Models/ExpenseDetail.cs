@@ -11,6 +11,14 @@ namespace SimpleFinance.Models
             
         }
 
+       public ExpenseDetail(Guid expenseHeaderId, decimal expenseValue)  
+        {
+            ExpenseDetailId = Guid.NewGuid();
+            ExpenseHeaderId = expenseHeaderId;
+            ExpenseValue = expenseValue;
+            CreateDate = DateTime.Now;
+        }
+
         public ExpenseDetail(ExpenseHeader expenseHeader)
         {
             ExpenseDetailId = Guid.NewGuid();

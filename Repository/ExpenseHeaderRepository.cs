@@ -33,5 +33,21 @@ namespace SimpleFinance.Repository
         {
             return await _context.ExpenseHeader.Where(eh => eh.ExpenseHeaderId == expenseHeaderId).FirstAsync();
         }
+
+        public async Task<ExpenseHeader> UpdateExpenseHeader(ExpenseHeader expenseHeader)
+        {
+            var existing = await _context.ExpenseHeader.FirstOrDefaultAsync(x => x.ExpenseHeaderId == expenseHeader.ExpenseHeaderId);
+
+            if (existing != null)
+            {
+                existing.ExpenseValue = expenseHeader.ExpenseValue;
+                existing.ExpenseName = expenseHeader.ExpenseName;
+                existing.ExpenseType = expenseHeader.ExpenseType;
+
+                await _context.SaveChangesAsync();
+                return expenseHeader;
+            }
+            return null;
+        }
     }
 }

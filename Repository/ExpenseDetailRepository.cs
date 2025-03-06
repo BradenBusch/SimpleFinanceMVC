@@ -14,6 +14,13 @@ namespace SimpleFinance.Repository
             _context = context;
         }
 
+        public async Task<ExpenseDetail> CreateExpenseDetail(ExpenseDetail expenseDetail)
+        {
+            await _context.ExpenseDetail.AddAsync(expenseDetail);
+            await _context.SaveChangesAsync();
+            return expenseDetail;
+        }
+
         public async Task<List<ExpenseDetail>> GetExpenseDetailsByHeaderId(Guid expenseHeaderId)
         {
             return await _context.ExpenseDetail.Where(ed => ed.ExpenseHeaderId == expenseHeaderId).ToListAsync();

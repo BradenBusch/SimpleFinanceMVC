@@ -14,11 +14,17 @@ namespace SimpleFinance.Controllers
         private readonly IExpenseHeaderRepository _expenseHeaderRepository = expenseHeaderRepository;
         private readonly IExpenseDetailRepository _expenseDetailRepository = expenseDetailRepository;
 
-        public async Task<IActionResult> AddExpenseDetail(Guid expenseHeaderId)
+        public async Task<IActionResult> CreateExpenseDetail(Guid expenseHeaderId, decimal expenseValue)
         {
             var expenseHeader = await _expenseHeaderRepository.GetExpenseHeaderByExpenseHeaderId(expenseHeaderId);
 
-            return View();
+            ExpenseDetail expenseDetail = new ExpenseDetail(expenseHeaderId, expenseValue);
+
+            expenseHeader.ExpenseValue += expenseValue;
+
+            await _expenseDetailRepository.CreateExpenseDetail(expenseDetail);
+            await _expenseHeaderRepository.UpdateExpenseHeader(expenseHeader);
+            return RedirectToAction("ExpenseHome", "ExpenseHeader");
         }
 
 
